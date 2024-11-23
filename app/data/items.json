@@ -1,0 +1,49 @@
+[
+    {
+      "id": 1,
+      "name": "Chicken Breast",
+      "price": 5.99,
+      "size": "1 kg",
+      "productType": "meat",
+      "recordDate": "2023-05-15",
+      "store": "Walmart"
+    },
+    {
+      "id": 2,
+      "name": "Milk",
+      "price": 3.49,
+      "size": "1 g",
+      "productType": "milk",
+      "recordDate": "2023-05-14",
+      "store": "FreshCo"
+    },
+    {
+      "id": 3,
+      "name": "White Bread",
+      "price": 2.99,
+      "size": "each",
+      "productType": "Bread",
+      "recordDate": "2023-05-13",
+      "store": "Real Canadian"
+    },
+    {
+      "id": 4,
+      "name": "Laptop",
+      "price": 799.99,
+      "size": "each",
+      "productType": "electronic",
+      "recordDate": "2023-05-12",
+      "store": "Best Buy"
+    },
+    {
+      "id": 5,
+      "name": "Laundry Detergent",
+      "price": 12.99,
+      "size": "8qt",
+      "productType": "household items",
+      "recordDate": "2023-05-11",
+      "store": "Amazon"
+    }
+  ]
+  
+  

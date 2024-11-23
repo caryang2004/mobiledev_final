@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Meat from FreshCo",
+    "criteria": {
+      "productType": "meat",
+      "store": "FreshCo",
+      "minPrice": "",
+      "maxPrice": ""
+    }
+  },
+  {
+    "id": 2,
+    "name": "Electronics under $500",
+    "criteria": {
+      "productType": "electronic",
+      "store": "",
+      "minPrice": "",
+      "maxPrice": "500"
+    }
+  }
+]
+
