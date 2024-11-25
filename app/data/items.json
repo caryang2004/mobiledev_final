@@ -6,7 +6,8 @@
       "size": "1 kg",
       "productType": "meat",
       "recordDate": "2023-05-15",
-      "store": "Walmart"
+      "store": "Walmart",
+      "favourite": false
     },
     {
       "id": 2,
@@ -15,7 +16,8 @@
       "size": "1 g",
       "productType": "milk",
       "recordDate": "2023-05-14",
-      "store": "FreshCo"
+      "store": "FreshCo",
+      "favourite": false
     },
     {
       "id": 3,
@@ -24,7 +26,8 @@
       "size": "each",
       "productType": "Bread",
       "recordDate": "2023-05-13",
-      "store": "Real Canadian"
+      "store": "Real Canadian",
+      "favourite": true
     },
     {
       "id": 4,
@@ -33,7 +36,8 @@
       "size": "each",
       "productType": "electronic",
       "recordDate": "2023-05-12",
-      "store": "Best Buy"
+      "store": "Best Buy",
+      "favourite": true
     },
     {
       "id": 5,
@@ -42,7 +46,8 @@
       "size": "8qt",
       "productType": "household items",
       "recordDate": "2023-05-11",
-      "store": "Amazon"
+      "store": "Amazon",
+      "favourite": true
     }
   ]
   
