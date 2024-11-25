@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, FlatList, StyleSheet } from 'react-native';
-import AddItem from './components/AddItem';
 import itemsData from '../../data/items.json';
 import listsData from '../../data/itemlists.json';
 
@@ -29,15 +28,15 @@ export default function HomeScreen() {
 
   const renderList = ({ item }) => (
     <View style={styles.itemContainer}>
-      <View style={styles.circularIcon}></View>
+      <View style={styles.roundedSquareIcon}></View>
       <Text
         style={styles.itemName}
         numberOfLines={1}
-      >{item?.name || 'No name'}</Text>
+      >{item.name || 'No name'}</Text>
       <Text
         style={styles.itemDesc}
         numberOfLines={1}
-      >{item?.criteria?.productType || 'No product type'}</Text>
+      >{item.criteria.productType || 'No product type'}</Text>
     </View>
   );
 
@@ -99,10 +98,19 @@ const styles = StyleSheet.create({
     margin: 'auto',
     marginTop: 0,
     marginBottom: 10,
-    backgroundColor: '#000',
+    backgroundColor: 'tomato',
     width: '104px',
     height: '104px',
     borderRadius: '50%',
+  },
+  roundedSquareIcon: {
+    margin: 'auto',
+    marginTop: 0,
+    marginBottom: 10,
+    backgroundColor: 'tomato',
+    width: '104px',
+    height: '104px',
+    borderRadius: '25%',
   },
   itemName: {
     margin: 'auto',
