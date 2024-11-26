@@ -7,17 +7,31 @@ import {
   StyleSheet,
   Button,
 } from "react-native";
+import { useNavigation } from '@react-navigation/native';
 import itemsData from "../../data/items.json";
 import listsData from "../../data/itemlists.json";
 
 export default function HomeScreen() {
   const [items, setItems] = useState([]);
   const [lists, setLists] = useState([]);
+  const navigation = useNavigation();
 
   useEffect(() => {
     setItems(itemsData.filter((item) => item.favourite));
     setLists(listsData.filter((list) => list.id > 0));
   }, []);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button
+          onPress={() => navigation.navigate('AddItem')}
+          title="+"
+          color="blue"
+        />
+      ),
+    });
+  }, [navigation]);
 
   const renderItem = ({ item }) => (
     <View style={styles.itemContainer}>
@@ -80,11 +94,11 @@ export default function HomeScreen() {
         />
         <Button
           title="Edit Item"
-          onPress={() => navigation.navigate("EditItem", { items })}
+          onPress={() => navigation.navigate("EditItem")}
         />
         <Button
           title="Delete Item"
-          onPress={() => navigation.navigate("DeleteItem", { items })}
+          onPress={() => navigation.navigate("DeleteItem")}
         />
       </View>
     </ScrollView>
@@ -105,7 +119,7 @@ const styles = StyleSheet.create({
   sectionHeader: {
     padding: 15,
     paddingBottom: 5,
-    fontSize: "32px",
+    fontSize: 32,
     fontWeight: "bold",
   },
   horizontalFlatlist: {},
@@ -119,18 +133,18 @@ const styles = StyleSheet.create({
     marginTop: 0,
     marginBottom: 10,
     backgroundColor: "tomato",
-    width: "104px",
-    height: "104px",
-    borderRadius: "50%",
+    width: 104,
+    height: 104,
+    borderRadius: 52,
   },
   roundedSquareIcon: {
     margin: "auto",
     marginTop: 0,
     marginBottom: 10,
     backgroundColor: "tomato",
-    width: "104px",
-    height: "104px",
-    borderRadius: "25%",
+    width: 104,
+    height: 104,
+    borderRadius: 26,
   },
   itemName: {
     margin: "auto",
@@ -143,4 +157,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginBottom: 5,
   },
+  emptyText: {
+    textAlign: "center",
+    marginTop: 20,
+    fontSize: 16,
+    color: "#888",
+  },
 });
+
