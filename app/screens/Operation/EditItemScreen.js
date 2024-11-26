@@ -6,6 +6,7 @@ const EditItemScreen = ({ route, navigation }) => {
   const filePath = `${FileSystem.documentDirectory}items.json`;
 
   const [isMounted, setIsMounted] = useState(true);
+  const [theItems, setItems] = useState([]);
 
   useEffect(() => {
     setIsMounted(true);
@@ -19,6 +20,7 @@ const EditItemScreen = ({ route, navigation }) => {
 
       const index = items.findIndex((item) => item.id === route.params.itemId);
       items[index] = { id: route.params.itemId, ...updatedItem };
+      setItems(items)
 
       if (isMounted) {
         await FileSystem.writeAsStringAsync(filePath, JSON.stringify(items));
@@ -31,7 +33,7 @@ const EditItemScreen = ({ route, navigation }) => {
 
   return (
     <EditItem
-      initialData={route.params.item}
+      initialData={theItems}
       onSubmit={handleEditItem}
       onCancel={() => navigation.goBack()}
     />
