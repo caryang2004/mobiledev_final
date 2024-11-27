@@ -92,10 +92,10 @@ export default function HomeScreen() {
           title="Add Item"
           onPress={() => navigation.navigate("AddItem")}
         />
-        <Button
+        {/* <Button
           title="Edit Item"
           onPress={() => navigation.navigate("EditItem")}
-        />
+        /> */}
         <Button
           title="Delete Item"
           onPress={() => navigation.navigate("DeleteItem")}
