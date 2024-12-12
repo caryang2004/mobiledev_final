@@ -6,20 +6,58 @@ import {
   FlatList,
   StyleSheet,
   Button,
+  TouchableOpacity,
 } from "react-native";
-import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
+
 import itemsData from "../../data/items.json";
 import listsData from "../../data/itemlists.json";
+
+const writeItemsJson = async () => {
+  const itemsJson = await AsyncStorage.getItem('items');
+  if (itemsJson === null) {
+     await AsyncStorage.setItem('items', JSON.stringify(itemsData));
+     alert("Wrote items data (delete this message before presentation)");
+  }
+}
+
+const writeListsJson = async () => {
+  const listsJson = await AsyncStorage.getItem('lists');
+  if (listsJson === null) {
+    await AsyncStorage.setItem('lists', JSON.stringify(listsData));
+    alert("Wrote lists data (delete this message before presentation)");
+  }
+}
 
 export default function HomeScreen() {
   const [items, setItems] = useState([]);
   const [lists, setLists] = useState([]);
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
+  
+  writeItemsJson();
+  writeListsJson();
+
 
   useEffect(() => {
-    setItems(itemsData.filter((item) => item.favourite));
-    setLists(listsData.filter((list) => list.id > 0));
-  }, []);
+    AsyncStorage.getItem('items')
+      .then(itemsList => {
+        const itemsJson = JSON.parse(itemsList);
+        const filtered = itemsJson.filter((item) => item.favourite);
+        if (filtered != items) {
+          setItems(filtered);
+        }
+      });
+    AsyncStorage.getItem('lists')
+      .then(listsList => {
+        const listsJson = JSON.parse(listsList);
+        const filtered = listsJson.filter((list) => list.id > 0);
+        if (filtered != lists) {
+          setLists(filtered);
+        }
+      });
+  }, [isFocused]);
 
   useEffect(() => {
     navigation.setOptions({
@@ -35,13 +73,11 @@ export default function HomeScreen() {
 
   const renderItem = ({ item }) => (
     <View style={styles.itemContainer}>
+    <TouchableOpacity onPress={() => navigation.navigate("ItemScreen", {item:item})}>
       <View style={styles.circularIcon}></View>
-      <Text style={styles.itemName} numberOfLines={1}>
-        {item.name}
-      </Text>
-      <Text style={styles.itemDesc} numberOfLines={1}>
-        Price: ${item.price.toFixed(2)}
-      </Text>
+      <Text style={styles.itemName} numberOfLines={1}>{item.name}</Text>
+      <Text style={styles.itemDesc} numberOfLines={1}>Price: ${item.price.toFixed(2)}</Text>
+    </TouchableOpacity>
     </View>
   );
 
@@ -86,20 +122,6 @@ export default function HomeScreen() {
             }
           />
         </View>
-      </View>
-      <View>
-        <Button
-          title="Add Item"
-          onPress={() => navigation.navigate("AddItem")}
-        />
-        {/* <Button
-          title="Edit Item"
-          onPress={() => navigation.navigate("EditItem")}
-        /> */}
-        <Button
-          title="Delete Item"
-          onPress={() => navigation.navigate("DeleteItem")}
-        />
       </View>
     </ScrollView>
   );

@@ -10,6 +10,9 @@ import AddItemScreen from '../screens/Operation/AddItemScreen';
 import DeleteItemScreen from '../screens/Operation/DeleteItemScreen';
 import EditItemScreen from '../screens/Operation/EditItemScreen';
 
+import ItemScreen from "../screens/Operation/ItemScreen";
+import EditItemScreenNew from "../screens/Operation/EditItemScreenNew";
+
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -74,6 +77,7 @@ export default function MainTabNavigator() {
         tabBarInactiveTintColor: 'gray',
       })}
     >
+
       <Tab.Screen 
         name="Home" 
         component={HomeStack} 
