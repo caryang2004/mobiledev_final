@@ -14,6 +14,7 @@ import items from "../../data/items.json";
 const ItemScreen = ({route}) => {
   const {item} = route.params;
   const navigation = useNavigation();
+
   return (
     <ScrollView style={styles.root}>
       <View style={styles.header}>

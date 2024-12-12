@@ -11,18 +11,27 @@ import {
   CheckBox,
 } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import DeleteItemScreen from "./DeleteItemScreen";
 
 const EditItemScreenNew = ({route}) => {
   const {item} = route.params;
+  const [itemName, setItemName] = useState("");
+  const [itemPrice, setItemPrice] = useState("");
+  const [itemSize, setItemSize] = useState("");
+  const [itemType, setItemType] = useState("");
+  const [itemStore, setItemStore] = useState("");
+  const [itemFavourite, setItemFavourite] = useState(false);
   const navigation = useNavigation();
-  const [itemName, setItemName] = useState(item.name);
-  const [itemPrice, setItemPrice] = useState(item.price);
-  const [itemSize, setItemSize] = useState(item.size);
-  const [itemType, setItemType] = useState(item.productType);
-  const [itemStore, setItemStore] = useState(item.store);
-  const [itemFavourite, setItemFavourite] = useState(item.favourite);
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    setItemName(item.name);
+    setItemPrice(item.price);
+    setItemSize(item.size);
+    setItemType(item.type);
+    setItemStore(item.store);
+    setItemFavourite(item.favourite);
+  }, [isFocused]);
   
   const handleSave = async () => {
     let itemsJson = await AsyncStorage.getItem('items');
@@ -46,23 +55,23 @@ const EditItemScreenNew = ({route}) => {
     <ScrollView style={styles.root}>
       <View style={styles.body}>
         <Text style={styles.title}>Name:</Text>
-        <TextInput style={styles.input} placeholder="Item Name" value={itemName} onChangeText={setItemName}/>
+        <TextInput style={styles.input} placeholder="Item Name" value={itemName} onChangeText={text => setItemName(text)}/>
         
         <Text style={styles.title}>Price:</Text>
-        <TextInput style={styles.input} placeholder="Item Price" value={itemPrice} onChangeText={setItemPrice}/>
+        <TextInput style={styles.input} placeholder="Item Price" value={itemPrice} onChangeText={text => setItemPrice(text)}/>
         
         <Text style={styles.title}>Size:</Text>
-        <TextInput style={styles.input} placeholder="Item Size" value={itemSize} onChangeText={setItemSize}/>
+        <TextInput style={styles.input} placeholder="Item Size" value={itemSize} onChangeText={text => setItemSize(text)}/>
         
         <Text style={styles.title}>Type:</Text>
-        <TextInput style={styles.input} placeholder="Item Type" value={itemType} onChangeText={setItemType}/>
+        <TextInput style={styles.input} placeholder="Item Type" value={itemType} onChangeText={text => setItemType(text)}/>
 
         <Text style={styles.title}>Favourite?</Text>
         <input type="checkbox" style={styles.checkbox} checked={itemFavourite} onChange={() => setItemFavourite(!itemFavourite)}/>
       </View>
       
       <View style={styles.actionButtons}>
-        <TouchableOpacity style={styles.destructiveButton} onPress={() => nav.navigate("Home")}>
+        <TouchableOpacity style={styles.destructiveButton} onPress={() => navigation.navigate("Home")}>
           <Text style={styles.buttonText}>Cancel</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={handleSave}>
