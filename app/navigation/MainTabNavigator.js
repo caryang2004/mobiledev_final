@@ -9,6 +9,9 @@ import AddItemScreen from "../screens/Operation/AddItemScreen";
 import EditItemScreen from "../screens/Operation/EditItemScreen";
 import DeleteItemScreen from "../screens/Operation/DeleteItemScreen";
 
+import ItemScreen from "../screens/Operation/ItemScreen";
+import EditItemScreenNew from "../screens/Operation/EditItemScreenNew";
+
 const Tab = createBottomTabNavigator();
 
 export default function MainTabNavigator() {
@@ -44,6 +47,8 @@ export default function MainTabNavigator() {
       <Tab.Screen name="AddItem" component={AddItemScreen} />
       <Tab.Screen name="EditItem" component={EditItemScreen} />
       <Tab.Screen name="DeleteItem" component={DeleteItemScreen} />
+      <Tab.Screen name="ItemScreen" component={ItemScreen} />
+      <Tab.Screen name="EditItemScreenNew" component={EditItemScreenNew} />
     </Tab.Navigator>
   );
 }
