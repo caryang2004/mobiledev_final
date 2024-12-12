@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
+
 import itemsData from "../../data/items.json";
 import listsData from "../../data/itemlists.json";
 
@@ -38,6 +39,7 @@ export default function HomeScreen() {
   writeItemsJson();
   writeListsJson();
 
+
   useEffect(() => {
     AsyncStorage.getItem('items')
       .then(itemsList => {
@@ -56,6 +58,18 @@ export default function HomeScreen() {
         }
       });
   }, [isFocused]);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button
+          onPress={() => navigation.navigate('AddItem')}
+          title="+"
+          color="blue"
+        />
+      ),
+    });
+  }, [navigation]);
 
   const renderItem = ({ item }) => (
     <View style={styles.itemContainer}>
@@ -127,7 +141,7 @@ const styles = StyleSheet.create({
   sectionHeader: {
     padding: 15,
     paddingBottom: 5,
-    fontSize: "32px",
+    fontSize: 32,
     fontWeight: "bold",
   },
   horizontalFlatlist: {},
@@ -141,18 +155,18 @@ const styles = StyleSheet.create({
     marginTop: 0,
     marginBottom: 10,
     backgroundColor: "tomato",
-    width: "104px",
-    height: "104px",
-    borderRadius: "50%",
+    width: 104,
+    height: 104,
+    borderRadius: 52,
   },
   roundedSquareIcon: {
     margin: "auto",
     marginTop: 0,
     marginBottom: 10,
     backgroundColor: "tomato",
-    width: "104px",
-    height: "104px",
-    borderRadius: "25%",
+    width: 104,
+    height: 104,
+    borderRadius: 26,
   },
   itemName: {
     margin: "auto",
@@ -165,4 +179,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginBottom: 5,
   },
+  emptyText: {
+    textAlign: "center",
+    marginTop: 20,
+    fontSize: 16,
+    color: "#888",
+  },
 });
+

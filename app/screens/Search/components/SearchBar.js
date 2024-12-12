@@ -8,7 +8,7 @@ const SearchBar = ({ value, onChangeText }) => {
       <Ionicons name="search" size={20} color="#888" style={styles.icon} />
       <TextInput
         style={styles.input}
-        placeholder="Search items..."
+        placeholder="Search items name..."
         value={value}
         onChangeText={onChangeText}
       />
