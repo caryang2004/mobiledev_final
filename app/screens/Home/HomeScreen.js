@@ -60,18 +60,6 @@ export default function HomeScreen() {
       });
   }, [isFocused]);
 
-  // useEffect(() => {
-  //   navigation.setOptions({
-  //     headerRight: () => (
-  //       <Button
-  //         onPress={() => navigation.navigate('AddItem')}
-  //         title="+"
-  //         color="blue"
-  //       />
-  //     ),
-  //   });
-  // }, [navigation]);
-
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (

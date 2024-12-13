@@ -14,6 +14,9 @@ import DeleteItemScreen from '../screens/Operation/DeleteItemScreen';
 import ItemScreen from "../screens/Operation/ItemScreen";
 import EditItemScreenNew from "../screens/Operation/EditItemScreenNew";
 
+import ItemScreen from "../screens/Operation/ItemScreen";
+import EditItemScreenNew from "../screens/Operation/EditItemScreenNew";
+
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
