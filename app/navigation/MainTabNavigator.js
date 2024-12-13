@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -8,7 +9,10 @@ import SearchScreen from '../screens/Search/SearchScreen';
 import ListScreen from '../screens/List/ListScreen';
 import AddItemScreen from '../screens/Operation/AddItemScreen';
 import DeleteItemScreen from '../screens/Operation/DeleteItemScreen';
-import EditItemScreen from '../screens/Operation/EditItemScreen';
+// import EditItemScreen from '../screens/Operation/EditItemScreen';
+
+import ItemScreen from "../screens/Operation/ItemScreen";
+import EditItemScreenNew from "../screens/Operation/EditItemScreenNew";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -23,7 +27,7 @@ function HomeStack() {
       />
       <Stack.Screen name="AddItem" component={AddItemScreen} />
       <Stack.Screen name="DeleteItem" component={DeleteItemScreen} />
-      {/* <Stack.Screen name="EditItem" component={EditItemScreen} /> */}
+      {/* <Stack.Screen name="EditItem" component={EditItemScreenNew} /> */}
     </Stack.Navigator>
   );
 }
@@ -36,7 +40,7 @@ function SearchStack() {
         component={SearchScreen} 
         options={{ title: 'Search' }}
       />
-      <Stack.Screen name="EditItem" component={EditItemScreen} />
+      <Stack.Screen name="EditItem" component={EditItemScreenNew} />
     </Stack.Navigator>
   );
 }
@@ -74,6 +78,7 @@ export default function MainTabNavigator() {
         tabBarInactiveTintColor: 'gray',
       })}
     >
+
       <Tab.Screen 
         name="Home" 
         component={HomeStack} 
@@ -98,4 +103,3 @@ export default function MainTabNavigator() {
     </Tab.Navigator>
   );
 }
-

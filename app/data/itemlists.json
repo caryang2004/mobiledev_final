@@ -4,19 +4,15 @@
     "name": "Meat from FreshCo",
     "criteria": {
       "productType": "meat",
-      "store": "FreshCo",
-      "minPrice": "",
-      "maxPrice": ""
+      "store": "FreshCo"
     }
   },
   {
     "id": 2,
-    "name": "Electronics under $500",
+    "name": "Electronics from all stores",
     "criteria": {
       "productType": "electronic",
-      "store": "",
-      "minPrice": "",
-      "maxPrice": "500"
+      "store": ""
     }
   }
 ]
