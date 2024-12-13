@@ -48,6 +48,36 @@
       "recordDate": "2023-05-11",
       "store": "Amazon",
       "favourite": true
+    },
+    {
+      "id": 6,
+      "name": "Paper towels",
+      "price": 2.99,
+      "size": "each",
+      "productType": "household items",
+      "recordDate": "2023-04-29",
+      "store": "Amazon",
+      "favourite": false
+    },
+    {
+      "id": 7,
+      "name": "Toothbrush",
+      "price": 9.99,
+      "size": "each",
+      "productType": "household items",
+      "recordDate": "2023-12-02",
+      "store": "Amazon",
+      "favourite": false
+    },
+    {
+      "id": 8,
+      "name": "Toothpaste",
+      "price": 5.99,
+      "size": "each",
+      "productType": "household items",
+      "recordDate": "2023-02-28",
+      "store": "Amazon",
+      "favourite": false
     }
   ]
   

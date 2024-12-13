@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import {
   View,
@@ -59,14 +58,8 @@ export default function HomeScreen() {
           setLists(filtered);
         }
       });
-  }, [isFocused]);
-
-  useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        // <TouchableOpacity onPress={() => navigation.navigate('AddItem')} style={styles.addButton}>
-        //   <Text style={styles.addButtonText}>+</Text>
-        // </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('AddItem')} style={styles.addButton}>
           <View style={styles.icon}>
             <Ionicons name="add-circle-outline" size={40} color="blue" />
@@ -74,28 +67,25 @@ export default function HomeScreen() {
       </TouchableOpacity>
       ),
     });
-  }, [navigation]);
-
+  }, [isFocused, navigation]);
   
   const renderItem = ({ item }) => (
     <View style={styles.itemContainer}>
-    <TouchableOpacity onPress={() => navigation.navigate("ItemScreen", {item:item})}>
-      <View style={styles.circularIcon}></View>
-      <Text style={styles.itemName} numberOfLines={1}>{item.name}</Text>
-      <Text style={styles.itemDesc} numberOfLines={1}>Price: ${item.price.toFixed(2)}</Text>
-    </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("ItemScreen", {item:item})}>
+        <View style={styles.circularIcon}></View>
+        <Text style={styles.itemName} numberOfLines={1}>{item.name}</Text>
+        <Text style={styles.itemDesc} numberOfLines={1}>Price: ${item.price.toFixed(2)}</Text>
+      </TouchableOpacity>
     </View>
   );
 
   const renderList = ({ item }) => (
     <View style={styles.itemContainer}>
-      <View style={styles.roundedSquareIcon}></View>
-      <Text style={styles.itemName} numberOfLines={1}>
-        {item.name || "No name"}
-      </Text>
-      <Text style={styles.itemDesc} numberOfLines={1}>
-        {item.criteria.productType || "No product type"}
-      </Text>
+      <TouchableOpacity onPress={() => navigation.navigate("ItemListScreen", {theList:item})}>
+        <View style={styles.roundedSquareIcon}></View>
+        <Text style={styles.itemName} numberOfLines={1}>{item.name || "No name"}</Text>
+        <Text style={styles.itemDesc} numberOfLines={1}>{item.criteria.productType || "No product type"}</Text>
+      </TouchableOpacity>
     </View>
   );
 

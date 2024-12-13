@@ -12,6 +12,7 @@ import DeleteItemScreen from '../screens/Operation/DeleteItemScreen';
 // import EditItemScreen from '../screens/Operation/EditItemScreen';
 
 import ItemScreen from "../screens/Operation/ItemScreen";
+import ItemListScreen from "../screens/Operation/ItemListScreen";
 import EditItemScreenNew from "../screens/Operation/EditItemScreenNew";
 
 const Tab = createBottomTabNavigator();
@@ -27,7 +28,9 @@ function HomeStack() {
       />
       <Stack.Screen name="AddItem" component={AddItemScreen} />
       <Stack.Screen name="DeleteItem" component={DeleteItemScreen} />
-      {/* <Stack.Screen name="EditItem" component={EditItemScreenNew} /> */}
+      <Stack.Screen name="ItemScreen" component={ItemScreen} />
+      <Stack.Screen name="ItemListScreen" component={ItemListScreen} />
+      <Stack.Screen name="EditItem" component={EditItemScreenNew} />
     </Stack.Navigator>
   );
 }

@@ -8,62 +8,64 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
-import DeleteItemScreen from "./DeleteItemScreen";
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const ItemScreen = ({route}) => {
-  const {item} = route.params;
-  const [itemPrice, setItemPrice] = useState(0);
-  const [itemSize, setItemSize] = useState("");
-  const [itemName, setItemName] = useState("");
-  const [itemType, setItemType] = useState("");
-  const [itemDate, setItemDate] = useState("");
-  const [itemStore, setItemStore] = useState("");
+const ItemListScreen = ({route}) => {
+  const {theList} = route.params;
+  const [items, setItems] = useState([]);
   const navigation = useNavigation();
   const isFocused = useIsFocused();
-  
+
   useEffect(() => {
-    AsyncStorage.getItem('items')
-      .then(itemsList => {
-        const itemsJson = JSON.parse(itemsList);
-        let newItem = itemsJson.filter((i) => i.id === item.id);
-        newItem = newItem[0];
-        setItemPrice(newItem.price);
-        setItemSize(newItem.size);
-        setItemName(newItem.name);
-        setItemType(newItem.productType);
-        setItemDate(newItem.recordDate);
-        setItemStore(newItem.store);
-      });
+    AsyncStorage.getItem('lists')
+        .then(listsList => {
+          const listsJson = JSON.parse(listsList);
+          let matchedList = listsJson.filter((l) => l.name === theList.name);
+          if (matchedList.length === 1) {
+            const list = matchedList[0];
+            AsyncStorage.getItem('items')
+              .then(itemsList => {
+                const itemsJson = JSON.parse(itemsList);
+                let out = [];
+                for (let i = 0; i < itemsJson.length; i++) {
+                  let theItem = itemsJson[i];
+                  let productType = list.criteria.productType;
+                  let store = list.criteria.store;
+                  if (productType.length > 0 && theItem.productType !== productType) {
+                    continue;
+                  } else if (store.length > 0 && theItem.store !== store) {
+                    continue;
+                  }
+                  // alert("Add item: " + theItem.name);
+                  out[out.length] = <Text style={styles.itemEntry}>{theItem.name}</Text>
+                }
+                if (out.length > 0) {
+                  setItems(out);
+                } else {
+                  setItems([<Text style={styles.itemEntry}>No items.</Text>]);
+                }
+              });
+          } else {
+            alert("No matched list");
+          }
+        });
   }, [isFocused, navigation]);
 
   return (
     <ScrollView style={styles.root}>
       <View style={styles.header}>
         <View style={styles.circularIcon}></View>
-        <Text style={styles.itemName} numberOfLines={1}>{item.name}</Text>
+        <Text style={styles.itemName} numberOfLines={1}>{theList.name}</Text>
       </View>
       <View style={styles.body}>
-        <View style={styles.actionButtons}>
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("EditItem", {item:item})}>
-            <Text style={styles.buttonText}>Edit</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.destructiveButton} onPress={() => navigation.goBack()}>
-            <Text style={styles.buttonText}>Delete</Text>
-          </TouchableOpacity>
-        </View>
-        <Text style={styles.itemDesc}>Price: ${itemPrice.toFixed(2)}</Text>
-        <Text style={styles.itemDesc}>Size: {itemSize}</Text>
-        <Text style={styles.itemDesc}>Type: {itemType}</Text>
-        <Text style={styles.itemDesc}>Date Recorded: {itemDate}</Text>
-        <Text style={styles.itemDesc}>Store: {itemStore}</Text>
+        {items}
       </View>
     </ScrollView>
   );
 };
 
-export default ItemScreen;
+export default ItemListScreen;
 
 const styles = StyleSheet.create({
   root: {
@@ -75,14 +77,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    paddingVertical: "32px",
+    paddingVertical: 32,
+    marginBottom: 8,
   },
   circularIcon: {
     marginHorizontal: "24px",
     backgroundColor: "tomato",
-    width: "108px",
-    height: "108px",
-    borderRadius: "50%",
+    width: 104,
+    height: 104,
+    borderRadius: 26,
   },
   itemName: {
     width: "70%",
@@ -104,14 +107,14 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-around",
-    marginBottom: 10,
+    marginBottom: "32px",
   },
   button: {
     fontWeight: "bold",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: 48,
+    height: "32px",
     width: "50%",
     backgroundColor: "#00bcff",
   },
@@ -120,7 +123,7 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: 48,
+    height: "32px",
     width: "50%",
     justifyContent: "center",
     alignItems: "center",
@@ -131,7 +134,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
   },
-  itemDesc: {
+  itemEntry: {
     width: "100%",
     paddingHorizontal: 16,
     paddingVertical: 24,
