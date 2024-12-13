@@ -19,7 +19,7 @@ const EditItemScreenNew = ({route}) => {
   const [itemName, setItemName] = useState("");
   const [itemPrice, setItemPrice] = useState("");
   const [itemSize, setItemSize] = useState("");
-  const [itemType, setItemType] = useState("");
+  const [itemProductType, setItemProductType] = useState("");
   const [itemStore, setItemStore] = useState("");
   const [itemFavourite, setItemFavourite] = useState(false);
   const navigation = useNavigation();
@@ -28,7 +28,7 @@ const EditItemScreenNew = ({route}) => {
     setItemName(item.name);
     setItemPrice(item.price);
     setItemSize(item.size);
-    setItemType(item.type);
+    setItemProductType(item.productType);
     setItemStore(item.store);
     setItemFavourite(item.favourite);
   }, [isFocused]);
@@ -41,10 +41,11 @@ const EditItemScreenNew = ({route}) => {
         theItem.name = itemName;
         theItem.price = itemPrice;
         theItem.size = itemSize;
-        theItem.productType = itemType;
+        theItem.productType = itemProductType;
         theItem.store = itemStore;
         theItem.favourite = itemFavourite;
         return;
+        
       }
     });
     await AsyncStorage.setItem('items', JSON.stringify(itemsJson));
@@ -64,7 +65,7 @@ const EditItemScreenNew = ({route}) => {
         <TextInput style={styles.input} placeholder="Item Size" value={itemSize} onChangeText={text => setItemSize(text)}/>
         
         <Text style={styles.title}>Type:</Text>
-        <TextInput style={styles.input} placeholder="Item Type" value={itemType} onChangeText={text => setItemType(text)}/>
+        <TextInput style={styles.input} placeholder="Item Product Type" value={itemProductType} onChangeText={text => setItemProductType(text)}/>
 
         <Text style={styles.title}>Favourite?</Text>
         <input type="checkbox" style={styles.checkbox} checked={itemFavourite} onChange={() => setItemFavourite(!itemFavourite)}/>

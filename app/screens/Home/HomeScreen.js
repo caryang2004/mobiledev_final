@@ -14,6 +14,7 @@ import { useNavigation, useIsFocused } from '@react-navigation/native';
 
 import itemsData from "../../data/items.json";
 import listsData from "../../data/itemlists.json";
+import { Ionicons } from '@expo/vector-icons';
 
 const writeItemsJson = async () => {
   const itemsJson = await AsyncStorage.getItem('items');
@@ -63,9 +64,14 @@ export default function HomeScreen() {
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
+        // <TouchableOpacity onPress={() => navigation.navigate('AddItem')} style={styles.addButton}>
+        //   <Text style={styles.addButtonText}>+</Text>
+        // </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('AddItem')} style={styles.addButton}>
-          <Text style={styles.addButtonText}>+</Text>
-        </TouchableOpacity>
+          <View style={styles.icon}>
+            <Ionicons name="add-circle-outline" size={40} color="blue" />
+          </View>
+      </TouchableOpacity>
       ),
     });
   }, [navigation]);
@@ -131,6 +137,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+  },
+  icon: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
   },
   section: {
     backgroundColor: "#fff",
