@@ -31,7 +31,7 @@ const EditItemScreenNew = ({route}) => {
     setItemProductType(item.productType);
     setItemStore(item.store);
     setItemFavourite(item.favourite);
-  }, [isFocused]);
+  }, [isFocused, navigation]);
   
   const handleSave = async () => {
     let itemsJson = await AsyncStorage.getItem('items');
@@ -49,7 +49,7 @@ const EditItemScreenNew = ({route}) => {
       }
     });
     await AsyncStorage.setItem('items', JSON.stringify(itemsJson));
-    navigation.navigate("Home");
+    navigation.pop(2);
   }
 
   return (
@@ -72,7 +72,7 @@ const EditItemScreenNew = ({route}) => {
       </View>
       
       <View style={styles.actionButtons}>
-        <TouchableOpacity style={styles.destructiveButton} onPress={() => navigation.navigate("Home")}>
+        <TouchableOpacity style={styles.destructiveButton} onPress={() => navigation.goBack()}>
           <Text style={styles.buttonText}>Cancel</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={handleSave}>
@@ -107,10 +107,12 @@ const styles = StyleSheet.create({
     borderRadius: "50%",
   },
   itemName: {
+    width: "70%",
     margin: "auto",
     marginLeft: "6px",
     fontSize: 36,
     fontWeight: "bold",
+    overflow: "hidden",
   },
   body: {
     width: "95%",
@@ -132,7 +134,7 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: "32px",
+    height: 48,
     width: "50%",
     backgroundColor: "#00bcff",
   },
@@ -141,7 +143,7 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: "32px",
+    height: 48,
     width: "50%",
     justifyContent: "center",
     alignItems: "center",
