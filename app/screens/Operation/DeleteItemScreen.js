@@ -1,81 +1,50 @@
-// import React, { useState, useEffect } from "react";
-// import ConfirmationDialog from "../../components/ConfirmationDialog.js";
-// import * as FileSystem from "expo-file-system";
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// const DeleteItemScreen = ({ route, navigation }) => {
-//   const filePath = `${FileSystem.documentDirectory}items.json`;
+export default function DeleteItemScreen({ route }) {
+  const {item} = route.params;
+  const [theItem, setTheItem] = useState(item.id);
+  const navigation = useNavigation();
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    AsyncStorage.getItem('items')
+      .then(itemsList => {
+        const itemsJson = JSON.parse(itemsList);
+        let matchedItem = itemsJson.filter((i) => i.id === theItem);
+        matchedItem = matchedItem[0];
+        setTheItem(matchedItem);
+      });
+  }, [isFocused, navigation]);
 
-//   const [isMounted, setIsMounted] = useState(true);
-
-//   useEffect(() => {
-//     setIsMounted(true);
-//     return () => setIsMounted(false);
-//   }, []);
-
-//   const handleDeleteItem = async () => {
-//     try {
-//       const data = await FileSystem.readAsStringAsync(filePath);
-//       const items = JSON.parse(data);
-
-//       const filteredItems = items.filter(
-//         (item) => item.id !== route.params.itemId
-//       );
-
-//       if (isMounted) {
-//         await FileSystem.writeAsStringAsync(
-//           filePath,
-//           JSON.stringify(filteredItems)
-//         );
-
-//         navigation.goBack();
-//       }
-//     } catch (error) {
-//       console.error("Error deleting item:", error);
-//     }
-//   };
-
-//   return (
-//     <ConfirmationDialog
-//       message="Are you sure you want to delete this item?"
-//       onConfirm={handleDeleteItem}
-//       onCancel={() => navigation.goBack()}
-//     />
-//   );
-// };
-
-// export default DeleteItemScreen;
-
-
-import React, { useState } from 'react';
-import { View, Text, FlatList, Button, StyleSheet } from 'react-native';
-import itemsData from '../../data/items.json';
-
-export default function DeleteItemScreen({ navigation }) {
-  const [items, setItems] = useState(itemsData);
-
-  const handleDeleteItem = (id) => {
-    // Here you would typically delete the item from your data source
-    // For now, we'll just remove it from the local state
-    setItems(items.filter(item => item.id !== id));
-  };
-
-  const renderItem = ({ item }) => (
-    <View style={styles.itemContainer}>
-      <Text style={styles.itemName}>{item.name}</Text>
-      <Text>Price: ${item.price.toFixed(2)}</Text>
-      <Text>Store: {item.store}</Text>
-      <Button title="Delete" onPress={() => handleDeleteItem(item.id)} color="red" />
-    </View>
-  );
+  function renderItem() {
+    const handleDeleteItem = async () => {
+      let itemsJson = await AsyncStorage.getItem('items');
+      itemsJson = JSON.parse(itemsJson);
+      itemsJson = itemsJson.filter((i) => i.id !== theItem.id);
+      await AsyncStorage.setItem('items', JSON.stringify(itemsJson));
+      navigation.pop(2);
+    };
+    return (
+    <>
+      <Text style={styles.itemName}>Are you sure you want to delete {item.name}?</Text>
+      <View style={styles.actionButtons}>
+        <TouchableOpacity style={styles.destructiveButton} onPress={handleDeleteItem}>
+          <Text style={styles.buttonText}>Delete</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
+          <Text style={styles.buttonText}>Cancel</Text>
+        </TouchableOpacity>
+      </View>
+    </>
+    )
+  }
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Delete Items</Text>
-      <FlatList
-        data={items}
-        renderItem={renderItem}
-        keyExtractor={item => item.id.toString()}
-      />
+      {renderItem(theItem)}
     </View>
   );
 }
@@ -99,6 +68,38 @@ const styles = StyleSheet.create({
   itemName: {
     fontSize: 18,
     fontWeight: 'bold',
+  },
+    actionButtons: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginTop: 48,
+  },
+  button: {
+    fontWeight: "bold",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: 48,
+    width: "50%",
+    backgroundColor: "#00bcff",
+  },
+  destructiveButton: {
+    fontWeight: "bold",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: 48,
+    width: "50%",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#ff2000",
+  },
+  buttonText: {
+    fontSize: "16px",
+    color: "#fff",
+    fontWeight: "bold",
   },
 });
 

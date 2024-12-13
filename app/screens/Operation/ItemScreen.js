@@ -49,7 +49,7 @@ const ItemScreen = ({route}) => {
           <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("EditItem", {item:item})}>
             <Text style={styles.buttonText}>Edit</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.destructiveButton} onPress={() => navigation.goBack()}>
+          <TouchableOpacity style={styles.destructiveButton} onPress={() => navigation.navigate("DeleteItemScreen", {item:item})}>
             <Text style={styles.buttonText}>Delete</Text>
           </TouchableOpacity>
         </View>

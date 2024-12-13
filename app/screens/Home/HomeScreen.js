@@ -10,36 +10,13 @@ import {
 } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
-
-import itemsData from "../../data/items.json";
-import listsData from "../../data/itemlists.json";
 import { Ionicons } from '@expo/vector-icons';
-
-const writeItemsJson = async () => {
-  const itemsJson = await AsyncStorage.getItem('items');
-  if (itemsJson === null) {
-     await AsyncStorage.setItem('items', JSON.stringify(itemsData));
-     alert("Wrote items data (delete this message before presentation)");
-  }
-}
-
-const writeListsJson = async () => {
-  const listsJson = await AsyncStorage.getItem('lists');
-  if (listsJson === null) {
-    await AsyncStorage.setItem('lists', JSON.stringify(listsData));
-    alert("Wrote lists data (delete this message before presentation)");
-  }
-}
 
 export default function HomeScreen() {
   const [items, setItems] = useState([]);
   const [lists, setLists] = useState([]);
   const navigation = useNavigation();
   const isFocused = useIsFocused();
-  
-  writeItemsJson();
-  writeListsJson();
-
 
   useEffect(() => {
     AsyncStorage.getItem('items')

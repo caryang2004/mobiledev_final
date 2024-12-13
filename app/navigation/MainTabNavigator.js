@@ -31,6 +31,7 @@ function HomeStack() {
       <Stack.Screen name="ItemScreen" component={ItemScreen} />
       <Stack.Screen name="ItemListScreen" component={ItemListScreen} />
       <Stack.Screen name="EditItem" component={EditItemScreenNew} />
+      <Stack.Screen name="DeleteItemScreen" component={DeleteItemScreen} />
     </Stack.Navigator>
   );
 }
