@@ -11,7 +11,7 @@
     const itemsJson = await AsyncStorage.getItem('items');
     if (itemsJson === null) {
       await AsyncStorage.setItem('items', JSON.stringify(itemsData));
-      alert("Wrote items data (delete this message before presentation)");
+      // alert("Wrote items data (delete this message before presentation)");
     }
   }
 
@@ -20,7 +20,7 @@
     const ListsJson = await AsyncStorage.getItem('lists');
     if (ListsJson === null) {
       await AsyncStorage.setItem('lists', JSON.stringify(itemListsData));
-      alert("Wrote lists data (delete this message before presentation)");
+      // alert("Wrote lists data (delete this message before presentation)");
     }
   }
 

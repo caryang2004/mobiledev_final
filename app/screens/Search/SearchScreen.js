@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SearchBar from './components/SearchBar';
@@ -11,7 +11,7 @@ const writeItemsJson = async () => {
   const itemsJson = await AsyncStorage.getItem('items');
   if (itemsJson === null) {
     await AsyncStorage.setItem('items', JSON.stringify(itemsData));
-    alert("Wrote items data (delete this message before presentation)");
+    // alert("Wrote items data (delete this message before presentation)");
   }
 }
 
@@ -20,6 +20,7 @@ export default function SearchScreen() {
   const [items, setItems] = useState([]); // State to store all items
   const [filteredItems, setFilteredItems] = useState([]); // State to store filtered items
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
 
   // Load items from AsyncStorage
   const loadItems = async () => {
@@ -39,7 +40,15 @@ export default function SearchScreen() {
   useEffect(() => {
     writeItemsJson(); // Write initial data if not present
     loadItems(); // Load items into state
-  }, []);
+    // AsyncStorage.getItem('items')
+    //   .then(itemsList => {
+    //     const itemsJson = JSON.parse(itemsList);
+    //     const filtered = itemsJson.filter((item) => item.favourite);
+    //     if (filtered != items) {
+    //       setItems(filtered);
+    //     }
+    //   });
+  }, [isFocused, navigation]);
 
   // Filter items based on the search query
   useEffect(() => {
