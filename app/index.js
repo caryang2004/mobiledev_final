@@ -1,7 +1,3 @@
-import React, { useState, useEffect } from "react";
-// import { NavigationContainer } from '@react-navigation/native';
-// import MainTabNavigator from './navigation/MainTabNavigator';
-
 import {
   StyleSheet,
   Text,
@@ -10,54 +6,24 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from "react-native";
+import React from "react";
 import { Link, useNavigation } from "expo-router";
-import { useIsFocused } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import itemsData from "./data/items.json";
-import listsData from "./data/itemlists.json";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
-const writeItemsJson = async () => {
-  const itemsJson = await AsyncStorage.getItem('items');
-  if (itemsJson === null) {
-     await AsyncStorage.setItem('items', JSON.stringify(itemsData));
-     // alert("Wrote items data (delete this message before presentation)");
-  }
-}
-
-const writeListsJson = async () => {
-  const listsJson = await AsyncStorage.getItem('lists');
-  if (listsJson === null) {
-    await AsyncStorage.setItem('lists', JSON.stringify(listsData));
-    // alert("Wrote lists data (delete this message before presentation)");
-  }
-}
-
-export default function App() {
-
+const Index = () => {
   const navigation = useNavigation();
-  const isFocused = useIsFocused();
-
-  useEffect(() => {
-    writeItemsJson();
-    writeListsJson();
-  }, [isFocused, navigation]);
 
   return (
-    // // <NavigationContainer>
-    //   <MainTabNavigator />
-    // // </NavigationContainer>
-
     <ImageBackground
       style={styles.background}
       source={{
-        uri: "https://images.unsplash.com/photo-1517832207067-4db24a2ae47c",
+        uri: "https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
       }} // Soft, professional background
     >
       <View style={styles.container}>
         <View style={styles.card}>
-          <Text style={styles.heading}>Welcome Back!</Text>
+          <Text style={styles.heading}>Smart Expenser</Text>
 
           {/* Username Input */}
           <View style={styles.inputGroup}>
@@ -100,13 +66,15 @@ export default function App() {
 
           {/* Link to Register */}
           <Link href="/register" style={styles.link}>
-            Register Now
+            Open Modal
           </Link>
         </View>
       </View>
     </ImageBackground>
   );
-}
+};
+
+export default Index;
 
 const styles = StyleSheet.create({
   background: {
