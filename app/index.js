@@ -6,13 +6,39 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigation } from "expo-router";
+import { useIsFocused } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import itemsData from "./data/items.json";
+import listsData from "./data/itemlists.json";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
+const writeItemsJson = async () => {
+  const itemsJson = await AsyncStorage.getItem('items');
+  if (itemsJson === null) {
+     await AsyncStorage.setItem('items', JSON.stringify(itemsData));
+     // alert("Wrote items data (delete this message before presentation)");
+  }
+}
+
+const writeListsJson = async () => {
+  const listsJson = await AsyncStorage.getItem('lists');
+  if (listsJson === null) {
+    await AsyncStorage.setItem('lists', JSON.stringify(listsData));
+    // alert("Wrote lists data (delete this message before presentation)");
+  }
+}
+
 const Index = () => {
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    writeItemsJson();
+    writeListsJson();
+  }, [isFocused, navigation]);
 
   return (
     <ImageBackground
