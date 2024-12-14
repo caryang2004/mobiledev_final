@@ -15,6 +15,13 @@ export default function AddItemScreen() {
   const isFocused = useIsFocused();
 
   const handleAddItem = async () => {
+    const getDate = () => {
+      const d = new Date();
+      var date = d.getDate();
+      var month = d.getMonth() + 1;
+      var year = d.getFullYear();
+      return year + '-' + month + '-' + date;
+    }
     let itemsJson = await AsyncStorage.getItem('items');
     itemsJson = JSON.parse(itemsJson);
     itemsJson.push({
@@ -22,6 +29,7 @@ export default function AddItemScreen() {
         'name': name,
         'price': price, 
         'size': size,
+        'recordDate': getDate(),
         'productType': productType,
         'store': store,
         'favourite': isFavourite,
