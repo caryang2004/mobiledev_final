@@ -14,14 +14,19 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const ItemListScreen = ({route}) => {
   const {theList} = route.params;
   const [items, setItems] = useState([]);
+  const [lists, setLists] = useState([]);
+  const [productType, setProductType] = useState('');
+  const [store, setStore] = useState('');
   const navigation = useNavigation();
   const isFocused = useIsFocused();
+
 
   useEffect(() => {
     AsyncStorage.getItem('lists')
         .then(listsList => {
           const listsJson = JSON.parse(listsList);
           let matchedList = listsJson.filter((l) => l.name === theList.name);
+          // console.log("matchedList", {matchedList});
           if (matchedList.length === 1) {
             const list = matchedList[0];
             AsyncStorage.getItem('items')
@@ -32,18 +37,21 @@ const ItemListScreen = ({route}) => {
                   let theItem = itemsJson[i];
                   let productType = list.criteria.productType;
                   let store = list.criteria.store;
+                  // console.log("productType", {productType});
+                  // console.log("store", {store});
                   if (productType.length > 0 && theItem.productType !== productType) {
                     continue;
                   } else if (store.length > 0 && theItem.store !== store) {
                     continue;
                   }
                   // alert("Add item: " + theItem.name);
-                  out[out.length] = <Text style={styles.itemEntry}>{theItem.name}</Text>
+                  out[out.length] = <Text style={styles.itemEntry}>Name: {"\t"}{theItem.name}{"\n"}Price: {"\t"}{theItem.price}{"\n"}Type: {"\t"}{theItem.productType}{"\n"}Store: {"\t"}{theItem.store}{"\n"}Date: {"\t"}{theItem.recordDate}{"\n"}</Text>
+
                 }
                 if (out.length > 0) {
                   setItems(out);
                 } else {
-                  setItems([<Text style={styles.itemEntry}>No items.</Text>]);
+                  setItems([<Text style={styles.itemEntry}>No items found.</Text>]);
                 }
               });
           } else {

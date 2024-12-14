@@ -104,7 +104,7 @@
     const saveLists = async (newLists) => {
       try {
         await AsyncStorage.setItem('lists', JSON.stringify(newLists));
-        console.log('Lists saved successfully', {lists});
+        // console.log('Lists saved successfully', {lists});
       } catch (error) {
         console.error('Error saving lists:', error);
         Alert.alert('Error', 'Failed to save the list. Please try again.');
@@ -145,7 +145,7 @@
         },
       };
       const updatedLists = [...lists, newList];
-      console.log("1. handleSaveList");
+      // console.log("1. handleSaveList");
       setLists(updatedLists);
       await saveLists(updatedLists);
       Alert.alert('Success', `List "${listName}" saved successfully!`);

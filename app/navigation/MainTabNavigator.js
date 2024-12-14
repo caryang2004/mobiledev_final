@@ -9,7 +9,6 @@ import SearchScreen from '../screens/Search/SearchScreen';
 import ListScreen from '../screens/List/ListScreen';
 import AddItemScreen from '../screens/Operation/AddItemScreen';
 import DeleteItemScreen from '../screens/Operation/DeleteItemScreen';
-// import EditItemScreen from '../screens/Operation/EditItemScreen';
 
 import ItemScreen from "../screens/Operation/ItemScreen";
 import ItemListScreen from "../screens/Operation/ItemListScreen";
@@ -27,11 +26,12 @@ function HomeStack() {
         options={{ title: 'Home' }}
       />
       <Stack.Screen name="AddItem" component={AddItemScreen} />
-      <Stack.Screen name="DeleteItem" component={DeleteItemScreen} />
-      <Stack.Screen name="ItemScreen" component={ItemScreen} />
-      <Stack.Screen name="ItemListScreen" component={ItemListScreen} />
-      <Stack.Screen name="EditItem" component={EditItemScreenNew} />
+      {/* <Stack.Screen name="DeleteItem" component={DeleteItemScreen} /> */}
       <Stack.Screen name="DeleteItemScreen" component={DeleteItemScreen} />
+      <Stack.Screen name="EditItem" component={EditItemScreenNew} />
+      <Stack.Screen name="ItemListScreen" component={ItemListScreen} />
+      <Stack.Screen name="ItemScreen" component={ItemScreen} />
+    
     </Stack.Navigator>
   );
 }

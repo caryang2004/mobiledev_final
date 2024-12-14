@@ -13,7 +13,7 @@ export default function AddItemScreen({ navigation }) {
   const handleAddItem = () => {
     // Here you would typically add the item to your data source
     // For now, we'll just log the item and go back
-    console.log({ name, price, size, productType, store, isFavourite });
+    // console.log({ name, price, size, productType, store, isFavourite });
     navigation.goBack();
   };
 
