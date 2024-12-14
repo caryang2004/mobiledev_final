@@ -14,7 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ItemScreen = ({route}) => {
   const {item} = route.params;
-  const [itemPrice, setItemPrice] = useState(0);
+  const [itemPrice, setItemPrice] = useState(0.0);
   const [itemSize, setItemSize] = useState("");
   const [itemName, setItemName] = useState("");
   const [itemType, setItemType] = useState("");
@@ -53,7 +53,7 @@ const ItemScreen = ({route}) => {
             <Text style={styles.buttonText}>Delete</Text>
           </TouchableOpacity>
         </View>
-        <Text style={styles.itemDesc}>Price: ${itemPrice.toFixed(2)}</Text>
+        <Text style={styles.itemDesc}>Price: ${itemPrice}</Text>
         <Text style={styles.itemDesc}>Size: {itemSize}</Text>
         <Text style={styles.itemDesc}>Type: {itemType}</Text>
         <Text style={styles.itemDesc}>Date Recorded: {itemDate}</Text>

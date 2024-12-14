@@ -51,7 +51,7 @@ export default function HomeScreen() {
       <TouchableOpacity onPress={() => navigation.navigate("ItemScreen", {item:item})}>
         <View style={styles.circularIcon}></View>
         <Text style={styles.itemName} numberOfLines={1}>{item.name}</Text>
-        <Text style={styles.itemDesc} numberOfLines={1}>Price: ${item.price.toFixed(2)}</Text>
+        <Text style={styles.itemDesc} numberOfLines={1}>Price: ${item.price}</Text>
       </TouchableOpacity>
     </View>
   );

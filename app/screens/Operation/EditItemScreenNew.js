@@ -18,7 +18,7 @@ const EditItemScreenNew = ({route}) => {
   const {item} = route.params;
   const [itemName, setItemName] = useState("");
   const [itemPrice, setItemPrice] = useState("");
-  const [itemSize, setItemSize] = useState("");
+  const [itemSize, setItemSize] = useState(0.0);
   const [itemProductType, setItemProductType] = useState("");
   const [itemStore, setItemStore] = useState("");
   const [itemFavourite, setItemFavourite] = useState(false);

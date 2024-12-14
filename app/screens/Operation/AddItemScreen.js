@@ -1,20 +1,33 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, ScrollView, Switch } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 
-export default function AddItemScreen({ navigation }) {
+export default function AddItemScreen() {
   const [name, setName] = useState('');
-  const [price, setPrice] = useState('');
+  const [price, setPrice] = useState(0.0);
   const [size, setSize] = useState('');
   const [productType, setProductType] = useState('');
   const [store, setStore] = useState('');
   const [isFavourite, setIsFavourite] = useState(false);
+  const navigation = useNavigation();
+  const isFocused = useIsFocused();
 
-  const handleAddItem = () => {
-    // Here you would typically add the item to your data source
-    // For now, we'll just log the item and go back
-    // console.log({ name, price, size, productType, store, isFavourite });
-    navigation.goBack();
+  const handleAddItem = async () => {
+    let itemsJson = await AsyncStorage.getItem('items');
+    itemsJson = JSON.parse(itemsJson);
+    itemsJson.push({
+        'id': Math.floor(Math.random() * (2 ** 32 - 1) + 1),
+        'name': name,
+        'price': price, 
+        'size': size,
+        'productType': productType,
+        'store': store,
+        'favourite': isFavourite,
+    });
+    await AsyncStorage.setItem('items', JSON.stringify(itemsJson));
+    navigation.pop(2);
   };
 
   return (
